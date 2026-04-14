@@ -79,7 +79,7 @@ Table: `favorites`
 3. Move project folder to:
 
    ```
-   C:\xampp\htdocs\MiniProject
+   E:\Files\htdocs\MiniProject
    ```
 4. Open phpMyAdmin and create database:
 
