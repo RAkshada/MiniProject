@@ -1,0 +1,7 @@
+CREATE TABLE favorites (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    year VARCHAR(10),
+    poster TEXT,
+    imdbID VARCHAR(20)
+);
