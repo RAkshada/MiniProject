@@ -6,12 +6,24 @@ let favorites = [];
 //let favorites = JSON.parse(localStorage.getItem("favorites")) || [];-->for local browser saving
 const favDiv = document.getElementById("favorites");
 searchInput.addEventListener("keyup", function () {
-    let query = searchInput.value;
+    let query = searchInput.value.trim();
 
     if (query.length > 2) {
         fetch(`https://www.omdbapi.com/?s=${query}&apikey=${apiKey}`)
             .then(res => res.json())
-            .then(data => showMovies(data.Search));
+            .then(data => {
+                if (data.Response === "True") {
+                    showMovies(data.Search);
+                } else {
+                    moviesDiv.innerHTML = `<p style="color:white;">No results found</p>`;
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                moviesDiv.innerHTML = `<p style="color:red;">Error fetching data</p>`;
+            });
+    } else {
+        moviesDiv.innerHTML = "";
     }
 });
 
@@ -28,7 +40,7 @@ function showMovies(movies) {
                 <h3>${movie.Title}</h3>
                 <p>${movie.Year}</p>
                 
-                <button onclick='addToFavorites(...)'>
+                <button onclick='addToFavorites(${JSON.stringify(movie).replace(/'/g, "\\'")})'>
                     <span class="star-icon">&#9733;</span> Add to Favorites
                 </button>
                 
